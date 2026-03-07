@@ -11,3 +11,5 @@ package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model
 public class Clientes {
     
 }
+
+//Programen en inglés

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Customer {
-    private String identification; 
+    private String id; 
     private String name;
     private String paternalSurname;
     private String maternalSurname;
@@ -16,8 +16,9 @@ public class Customer {
     public Customer() {
     }
     
-    public Customer(String identification, String name, String paternalSurname, String maternalSurname, String phoneNumber, String email, String photoUrl, LocalDate birthDate) {
-        this.identification = identification;
+    public Customer(String id, String name, String paternalSurname, String maternalSurname,
+           String phoneNumber, String email, String photoUrl, LocalDate birthDate) {
+        this.id = id;
         this.name = name;
         this.paternalSurname = paternalSurname;
         this.maternalSurname = maternalSurname;
@@ -27,12 +28,12 @@ public class Customer {
         this.birthDate = birthDate;
     }
 
-    public String getIdentification() {
-        return identification;
+    public String getId() {
+        return id;
     }
     
-    public void setIdentification(String identification) {
-        this.identification = identification;
+    public void setId(String id) {
+        this.id = id;
     }
     
     public String getName() {
@@ -105,7 +106,7 @@ public class Customer {
     @Override
     public String toString() {
         return "Person{" +
-               "identification=" + identification +
+               "Id=" + id +
                ", name=" + name +
                ", paternalSurname=" + paternalSurname +
                ", maternalSurname=" + maternalSurname +

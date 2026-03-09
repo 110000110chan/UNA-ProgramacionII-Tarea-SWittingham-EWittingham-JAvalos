@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
 
-public class AdministradorMainController implements Initializable {
+public class AdministradorMainController extends Controller implements Initializable {
 
     @FXML
     private ToggleButton btnDashboard;
@@ -52,6 +52,11 @@ public class AdministradorMainController implements Initializable {
     @FXML
     private void showClients(ActionEvent event) {
         mostrarVista("ClientesView");
+    }
+
+    @Override
+    public void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

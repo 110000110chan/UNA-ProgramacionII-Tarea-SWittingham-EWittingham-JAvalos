@@ -19,7 +19,7 @@ import javafx.scene.control.TextField;
  *
  * @author michw
  */
-public class ClientesController implements Initializable {
+public class ClientesController extends Controller implements Initializable {
 
     @FXML
     private TextField txtBuscar;
@@ -61,5 +61,10 @@ public class ClientesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @Override
+    public void initialize() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

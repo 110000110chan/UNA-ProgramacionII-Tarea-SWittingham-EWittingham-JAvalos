@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
 
 import java.net.URL;
@@ -14,12 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author michw
- */
-public class ClientesController extends Controller implements Initializable {
+public class CustomersController extends Controller implements Initializable {
 
     @FXML
     private TextField txtBuscar;
@@ -54,17 +45,13 @@ public class ClientesController extends Controller implements Initializable {
     @FXML
     private Label lblFiltroActivo;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
 
     @Override
     public void initialize() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -1,4 +1,3 @@
-
 package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util;
 
 import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.App;

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 public class Ticket {
     private String id;
-    private Customer customer;
     private Procedure procedure;
     private Station station;
     private boolean isPriority;
@@ -13,10 +12,9 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String id, Customer customer, Procedure procedure, Station station, 
+    public Ticket(String id, Procedure procedure, Station station, 
                   boolean isPriority, LocalDateTime arrivalTime) {
         this.id = id;
-        this.customer = customer;
         this.procedure = procedure;
         this.station = station;
         this.isPriority = isPriority;
@@ -29,14 +27,6 @@ public class Ticket {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public Procedure getProcedure() {
@@ -74,7 +64,6 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket{" + "id=" + id +
-                ", customer=" + customer +
                 ", procedure=" + procedure +
                 ", station=" + station +
                 ", isPriority=" + isPriority +

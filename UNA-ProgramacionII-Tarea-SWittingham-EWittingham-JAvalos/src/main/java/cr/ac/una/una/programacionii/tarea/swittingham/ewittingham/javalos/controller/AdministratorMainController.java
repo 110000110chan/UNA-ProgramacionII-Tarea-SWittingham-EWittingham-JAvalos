@@ -1,5 +1,6 @@
 package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
 
+import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,24 +9,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
 
-public class AdministradorMainController extends Controller implements Initializable {
+public class AdministratorMainController extends Controller implements Initializable {
 
     @FXML
-    private ToggleButton btnDashboard;
+    private MFXButton btnDashboard;
     @FXML
-    private ToggleButton btnTramites;
+    private MFXButton btnProcedures;
     @FXML
-    private ToggleButton btnSucursales;
+    private MFXButton btnCustomers;
     @FXML
-    private Button btnSalir;
+    private MFXButton btnLocations;
+    @FXML
+    private MFXButton btnExit;
     @FXML
     private StackPane contentArea;
-    @FXML
-    private ToggleButton btnCustomers;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,16 +41,25 @@ public class AdministradorMainController extends Controller implements Initializ
     }
 
     @FXML
-    private void showProcedure(ActionEvent event) {
+    private void showDashboard(ActionEvent event) {
+    }
+    
+    @FXML
+    private void showProcedures(ActionEvent event) {
     }
 
     @FXML
-    private void showBranchesAndStations(ActionEvent event) {
+    private void showLocations(ActionEvent event) {
+                mostrarVista("LocationsManagement");
     }
 
     @FXML
-    private void showClients(ActionEvent event) {
-        mostrarVista("ClientesView");
+    private void showCustomers(ActionEvent event) {
+        mostrarVista("CustomersView");
+    }
+    
+    @FXML
+    private void showExit(ActionEvent event) {
     }
 
     @Override

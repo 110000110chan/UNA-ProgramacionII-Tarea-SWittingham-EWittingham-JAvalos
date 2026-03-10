@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
 
 import javafx.scene.control.Control;
@@ -9,10 +5,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-/**
- *
- * @author michw
- */
+
 public abstract class Controller {
     
     private Stage stage;

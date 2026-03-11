@@ -1,3 +1,6 @@
-.mainFxmlClass {
-
+.menu-item ImageView{
+    -fx-opacity: 0.25;
+}
+.menu-item:hover ImageView{
+    -fx-opacity: 1;
 }

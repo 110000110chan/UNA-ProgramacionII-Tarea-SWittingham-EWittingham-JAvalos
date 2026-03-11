@@ -20,7 +20,12 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         FlowController.getInstance().InitializeFlow(stage, null);
         scene = new Scene(loadFXML("AdministratorMain"), 640, 480);
+        
         MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
+        
+        String css = getClass().getResource("view/Styles.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        
         stage.setScene(scene);
         stage.show();
     }

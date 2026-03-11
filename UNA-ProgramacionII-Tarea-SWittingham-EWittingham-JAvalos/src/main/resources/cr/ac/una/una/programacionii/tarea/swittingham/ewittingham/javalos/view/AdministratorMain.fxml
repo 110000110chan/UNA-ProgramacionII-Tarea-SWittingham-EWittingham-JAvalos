@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,7 +13,7 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller.AdministratorMainController">
     <left>
-        <VBox prefHeight="400.0" prefWidth="190.0">
+        <VBox>
             <children>
                 <HBox alignment="CENTER" prefHeight="80.0">
                     <children>
@@ -20,37 +21,37 @@
                         <Label text="Trámites UNA" />
                     </children>
                 </HBox>
-                <VBox spacing="10.0">
-               <HBox spacing="10.0">
+                <VBox prefHeight="143.0" prefWidth="113.0" spacing="10.0">
+               <HBox spacing="10.0" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                         <image>
                            <Image url="@../resources/DashboardIcon.png" />
                         </image></ImageView>
                      <MFXButton fx:id="btnDashboard" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showDashboard" text="Dashboard" HBox.hgrow="ALWAYS" />
                   </children>
                </HBox>
-               <HBox spacing="10.0">
+               <HBox spacing="10.0" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                         <image>
                            <Image url="@../resources/ProceduresIcon.png" />
                         </image></ImageView>
                      <MFXButton fx:id="btnProcedures" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showProcedures" text="Trámites" HBox.hgrow="ALWAYS" />
                   </children>
                </HBox>
-               <HBox spacing="10.0">
+               <HBox spacing="10.0" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                         <image>
                            <Image url="@../resources/CustomersIcon.png" />
                         </image></ImageView>
                      <MFXButton fx:id="btnCustomers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showCustomers" text="Clientes" HBox.hgrow="ALWAYS" />
                   </children>
                </HBox>
-               <HBox spacing="10.0">
+               <HBox spacing="10.0" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="32.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
                         <image>
                            <Image url="@../resources/LocationsIcon.png" />
                         </image></ImageView>
@@ -65,6 +66,12 @@
                <MFXButton fx:id="btnExit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Salir" />
                 </VBox>
             </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
         </VBox>
     </left>
     <center>

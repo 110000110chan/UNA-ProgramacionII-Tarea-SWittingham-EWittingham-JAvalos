@@ -1,8 +1,11 @@
 package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
 import java.time.Period;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Customer {
     private String id; 
     private String name;
@@ -92,10 +95,12 @@ public class Customer {
         this.birthDate = birthDate;
     }
     
+    @JsonIgnore
     public String getFullName() {
         return name + paternalSurname + maternalSurname;
     }
     
+    @JsonIgnore
     public int getAge() {
         if (birthDate == null) {
             return 0;

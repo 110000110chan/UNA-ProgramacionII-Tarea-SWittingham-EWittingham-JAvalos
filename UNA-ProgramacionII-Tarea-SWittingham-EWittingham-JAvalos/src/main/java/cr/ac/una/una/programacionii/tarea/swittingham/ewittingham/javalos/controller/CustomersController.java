@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -45,6 +46,10 @@ import javax.imageio.ImageIO;
 public class CustomersController extends Controller implements Initializable {
 
     private static final String CUSTOMERS_FILE = "customers";
+    private static final Path PHOTOS_DIRECTORY = Paths.get(
+            "src", "main", "resources", "cr", "ac", "una", "una", "programacionii",
+            "tarea", "swittingham", "ewittingham", "javalos", "resources", "fotos"
+    );
 
     @FXML
     private TextField txtBuscar;
@@ -372,9 +377,10 @@ public class CustomersController extends Controller implements Initializable {
         }
 
         try {
-            cargarFotoEnVista(archivoSeleccionado.toURI().toURL().toExternalForm(), archivoSeleccionado.getAbsolutePath());
-        } catch (MalformedURLException ex) {
-            mostrarError("No fue posible cargar la imagen seleccionada.");
+            Path fotoCopiada = copiarFotoAlProyecto(archivoSeleccionado.toPath());
+            cargarFotoEnVista(obtenerRutaRelativaFotos(fotoCopiada));
+        } catch (IOException ex) {
+            mostrarError("No fue posible copiar la imagen seleccionada al proyecto.");
         }
     }
 
@@ -393,13 +399,13 @@ public class CustomersController extends Controller implements Initializable {
                 return;
             }
 
-            Path carpetaFotos = Paths.get(System.getProperty("user.home"), "customer-photos");
+            Path carpetaFotos = obtenerDirectorioFotos();
             Files.createDirectories(carpetaFotos);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
             Path rutaFoto = carpetaFotos.resolve("cliente_" + timestamp + ".png");
             ImageIO.write(bufferedImage, "PNG", rutaFoto.toFile());
 
-            cargarFotoEnVista(rutaFoto.toUri().toString(), rutaFoto.toAbsolutePath().toString());
+            cargarFotoEnVista(obtenerRutaRelativaFotos(rutaFoto));
         } catch (IOException ex) {
             mostrarError("Ocurrio un error guardando la foto capturada.");
         } finally {
@@ -409,8 +415,8 @@ public class CustomersController extends Controller implements Initializable {
         }
     }
 
-    private void cargarFotoEnVista(String imageSource, String rutaTexto) {
-        Image image = new Image(imageSource, true);
+    private void cargarFotoEnVista(String rutaTexto) {
+        Image image = crearImagenDesdeRuta(rutaTexto);
         if (image.isError()) {
             mostrarError("No fue posible abrir la imagen.");
             return;
@@ -426,10 +432,40 @@ public class CustomersController extends Controller implements Initializable {
             if (path.startsWith("http") || path.startsWith("file:")) {
                 return new Image(path, true);
             }
-            return new Image(Paths.get(path).toUri().toString(), true);
+            Path ruta = Paths.get(path);
+            if (!ruta.isAbsolute()) {
+                ruta = Paths.get(System.getProperty("user.dir")).resolve(ruta).normalize();
+            }
+            return new Image(ruta.toUri().toString(), true);
         } catch (Exception ex) {
             return null;
         }
+    }
+
+    private Path obtenerDirectorioFotos() {
+        return Paths.get(System.getProperty("user.dir")).resolve(PHOTOS_DIRECTORY).normalize();
+    }
+
+    private Path copiarFotoAlProyecto(Path rutaOrigen) throws IOException {
+        Path directorioFotos = obtenerDirectorioFotos();
+        Files.createDirectories(directorioFotos);
+
+        String nombreArchivo = rutaOrigen.getFileName().toString();
+        String extension = "";
+        int extensionIndex = nombreArchivo.lastIndexOf('.');
+        if (extensionIndex >= 0) {
+            extension = nombreArchivo.substring(extensionIndex);
+        }
+
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+        Path rutaDestino = directorioFotos.resolve("cliente_" + timestamp + extension);
+        Files.copy(rutaOrigen, rutaDestino, StandardCopyOption.REPLACE_EXISTING);
+        return rutaDestino;
+    }
+
+    private String obtenerRutaRelativaFotos(Path rutaFoto) {
+        Path base = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
+        return base.relativize(rutaFoto.toAbsolutePath().normalize()).toString();
     }
 
     private String valorSeguro(String value) {

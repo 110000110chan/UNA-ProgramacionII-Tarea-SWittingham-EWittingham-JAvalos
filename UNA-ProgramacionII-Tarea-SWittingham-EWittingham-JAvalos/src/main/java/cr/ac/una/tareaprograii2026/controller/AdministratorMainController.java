@@ -43,8 +43,6 @@ public class AdministratorMainController extends Controller implements Initializ
     @FXML
     private void showDashboard(ActionEvent event) {
     }
-    //si
-    
     
     @FXML
     private void showProcedures(ActionEvent event) {

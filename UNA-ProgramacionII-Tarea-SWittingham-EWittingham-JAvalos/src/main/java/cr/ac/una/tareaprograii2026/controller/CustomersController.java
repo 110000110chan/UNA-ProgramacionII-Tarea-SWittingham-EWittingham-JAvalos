@@ -1,9 +1,9 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
+package cr.ac.una.tareaprograii2026.controller;
 
 import com.github.sarxos.webcam.Webcam;
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model.Customer;
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model.FileManager;
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util.AppContext;
+import cr.ac.una.tareaprograii2026.model.Customer;
+import cr.ac.una.tareaprograii2026.model.FileManager;
+import cr.ac.una.tareaprograii2026.util.AppContext;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -47,8 +47,7 @@ public class CustomersController extends Controller implements Initializable {
 
     private static final String CUSTOMERS_FILE = "customers";
     private static final Path PHOTOS_DIRECTORY = Paths.get(
-            "src", "main", "resources", "cr", "ac", "una", "una", "programacionii",
-            "tarea", "swittingham", "ewittingham", "javalos", "resources", "fotos"
+            "src", "main", "resources", "cr", "ac", "una", "tareaprograii2026", "resources", "fotos"
     );
 
     @FXML
@@ -499,3 +498,4 @@ public class CustomersController extends Controller implements Initializable {
         alert.showAndWait();
     }
 }
+

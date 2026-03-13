@@ -1,5 +1,5 @@
 
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util;
+package cr.ac.una.tareaprograii2026.util;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ChangeListener;
@@ -51,3 +51,4 @@ public final class BindingUtils {
         toggleGroup.selectedToggleProperty().removeListener(changeListener);
     }
 }
+

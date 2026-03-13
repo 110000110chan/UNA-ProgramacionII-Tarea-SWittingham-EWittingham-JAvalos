@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
+package cr.ac.una.tareaprograii2026.controller;
 
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class AdministratorMainController extends Controller implements Initializ
     public void mostrarVista(String nombreFXML) {
         try {
             Parent nuevaVista = FXMLLoader.load(getClass().getResource(
-                    "/cr/ac/una/una/programacionii/tarea/swittingham/ewittingham/javalos/view/" + nombreFXML + ".fxml"
+                    "/cr/ac/una/tareaprograii2026/view/" + nombreFXML + ".fxml"
             ));
             contentArea.getChildren().setAll(nuevaVista);
         } catch (IOException e) {
@@ -69,3 +69,4 @@ public class AdministratorMainController extends Controller implements Initializ
 
     
 }
+

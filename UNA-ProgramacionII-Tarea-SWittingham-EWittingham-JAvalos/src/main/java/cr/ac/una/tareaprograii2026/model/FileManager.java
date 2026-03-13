@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model;
+package cr.ac.una.tareaprograii2026.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -59,3 +59,4 @@ public class FileManager {
         return list;
     }
 }
+

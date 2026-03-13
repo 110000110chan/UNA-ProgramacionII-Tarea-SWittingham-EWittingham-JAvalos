@@ -37,6 +37,7 @@ public class AdministratorMainController extends Controller implements Initializ
             ));
             contentArea.getChildren().setAll(nuevaVista);
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -46,6 +47,7 @@ public class AdministratorMainController extends Controller implements Initializ
     
     @FXML
     private void showProcedures(ActionEvent event) {
+        mostrarVista("TramitesView");
     }
 
     @FXML

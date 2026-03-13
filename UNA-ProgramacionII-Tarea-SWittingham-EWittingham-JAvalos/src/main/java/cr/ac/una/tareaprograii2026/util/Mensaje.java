@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util;
+package cr.ac.una.tareaprograii2026.util;
 
 import java.util.Optional;
 import javafx.scene.control.Alert;
@@ -39,3 +39,4 @@ public class Mensaje {
         return result.get() == ButtonType.OK;
     }
 }
+

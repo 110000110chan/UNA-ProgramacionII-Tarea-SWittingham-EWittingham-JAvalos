@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
+package cr.ac.una.tareaprograii2026.controller;
 
 import javafx.scene.control.Control;
 import javafx.scene.input.KeyCode;
@@ -44,3 +44,4 @@ public abstract class Controller {
 
     public abstract void initialize();
 }
+

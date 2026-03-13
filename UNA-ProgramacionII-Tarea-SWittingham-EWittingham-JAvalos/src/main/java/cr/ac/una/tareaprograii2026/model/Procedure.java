@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.model;
+package cr.ac.una.tareaprograii2026.model;
 
 public class Procedure {
         private Customer customer;

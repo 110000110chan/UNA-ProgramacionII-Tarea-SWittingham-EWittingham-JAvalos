@@ -1,6 +1,6 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos;
+package cr.ac.una.tareaprograii2026;
 
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util.FlowController;
+import cr.ac.una.tareaprograii2026.util.FlowController;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import javafx.application.Application;

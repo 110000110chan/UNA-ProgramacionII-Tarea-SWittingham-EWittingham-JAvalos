@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util;
+package cr.ac.una.tareaprograii2026.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -71,3 +71,4 @@ public class AppContext {
     }
 
 }
+

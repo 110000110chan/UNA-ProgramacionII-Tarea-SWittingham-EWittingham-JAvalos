@@ -1,7 +1,7 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.util;
+package cr.ac.una.tareaprograii2026.util;
 
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.App;
-import cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller.Controller;
+import cr.ac.una.tareaprograii2026.App;
+import cr.ac.una.tareaprograii2026.controller.Controller;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
 import java.io.IOException;
@@ -219,3 +219,4 @@ public class FlowController {
     }
 
 }
+

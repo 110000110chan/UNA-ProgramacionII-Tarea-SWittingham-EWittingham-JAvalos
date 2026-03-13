@@ -1,4 +1,4 @@
-package cr.ac.una.una.programacionii.tarea.swittingham.ewittingham.javalos.controller;
+package cr.ac.una.tareaprograii2026.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;

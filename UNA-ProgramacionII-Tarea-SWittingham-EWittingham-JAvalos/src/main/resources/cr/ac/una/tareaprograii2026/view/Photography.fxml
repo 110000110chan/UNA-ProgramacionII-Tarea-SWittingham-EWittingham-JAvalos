@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="photography-root" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="cr.ac.una.tareaprograii2026.controller.PhotographyController">
+   <children>
+      <VBox fx:id="paneFotoCliente" alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="photography-container" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Label fx:id="lblTituloFoto" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="photography-title" text="Fotografía" VBox.vgrow="ALWAYS" />
+            <HBox spacing="25.0" styleClass="photography-images-section">
+               <children>
+                  <VBox spacing="10.0" styleClass="camera-section">
+                     <children>
+                        <VBox styleClass="image-container" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fx:id="imgViewFoto" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="image-preview" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="btnStartCamera" styleClass="photo-button,primary-button" text="Iniciar Cámara" />
+                              <Button fx:id="btnCapturePhoto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,primary-button" text="Capturar Foto" />
+                              <Button fx:id="btnStopCamera" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,secondary-button" text="Detener" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="selected-section" HBox.hgrow="ALWAYS">
+                     <children>
+                        <VBox styleClass="image-container" VBox.vgrow="ALWAYS">
+                           <children>
+                              <ImageView fx:id="imgViewFoto1" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="image-preview" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <Button fx:id="btnSeleccionarFoto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,accent-button" text="Seleccionar Foto" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="vibe-label" text="Elige tu vibra ✨" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0" styleClass="filter-buttons-section">
+               <children>
+                  <Button fx:id="btnNaturalFilter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,filter-button,natural-filter" text="Natural" />
+                  <Button fx:id="btnVintageFilter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,filter-button,vintage-filter" text="Vintage" />
+                  <Button fx:id="btnCoolFilter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,filter-button,cool-filter" text="Fría" />
+                  <Button fx:id="btnWarmFilter" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="photo-button,filter-button,warm-filter" text="Cálida" />
+               </children>
+            </HBox>
+            <Button fx:id="btnVolverFormulario" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="photo-button,action-button" text="✓ Usar Foto y Volver" VBox.vgrow="ALWAYS" />
+            <Label fx:id="lblRutaFoto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="status-label" text="Ninguna foto seleccionada" wrapText="true" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

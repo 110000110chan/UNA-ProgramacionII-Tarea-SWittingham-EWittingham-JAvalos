@@ -499,7 +499,7 @@ public class PhotographyController implements Initializable {
 
         AdministratorMainController adminController = (AdministratorMainController) AppContext.getInstance().get("admin_main_controller");
         if (adminController != null) {
-            adminController.mostrarVista(returnView);
+            adminController.showView(returnView);
         }
     }
 

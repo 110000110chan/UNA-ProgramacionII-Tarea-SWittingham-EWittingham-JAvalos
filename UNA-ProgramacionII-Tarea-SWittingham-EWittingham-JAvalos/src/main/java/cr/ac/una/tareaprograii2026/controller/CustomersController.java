@@ -254,7 +254,7 @@ public class CustomersController extends Controller implements Initializable {
 
         AdministratorMainController adminController = (AdministratorMainController) AppContext.getInstance().get("admin_main_controller");
         if (adminController != null) {
-            adminController.mostrarVista("Photography");
+            adminController.showView("Photography");
         }
     }
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,57 +14,76 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cr.ac.una.tareaprograii2026.controller.AdministratorMainController">
     <left>
-        <VBox>
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <children>
-                <HBox alignment="CENTER" prefHeight="80.0">
-                    <children>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" preserveRatio="true" />
-                        <Label text="Trámites UNA" />
-                    </children>
-                </HBox>
-                <VBox prefHeight="143.0" prefWidth="113.0" spacing="10.0">
-               <HBox spacing="10.0" styleClass="menu-item">
+                <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" VBox.vgrow="ALWAYS">
+               <StackPane fx:id="dashboardContainer" alignment="CENTER_LEFT" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                        <image>
-                           <Image url="@../resources/DashboardIcon.png" />
-                        </image></ImageView>
-                     <MFXButton fx:id="btnDashboard" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showDashboard" text="Dashboard" HBox.hgrow="ALWAYS" />
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon" HBox.hgrow="ALWAYS">
+                              <image>
+                                 <Image url="@../resources/DashboardIcon.png" />
+                              </image>
+                           </ImageView>
+                           <Label text="Gráficos" HBox.hgrow="SOMETIMES" />
+                        </children>
+                     </HBox>
+                     <ToggleButton fx:id="btnDashboard" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showDashboard" selected="true" text=" ">
+                        <toggleGroup>
+                           <ToggleGroup fx:id="menuButtons" />
+                        </toggleGroup>
+                     </ToggleButton>
                   </children>
-               </HBox>
-               <HBox spacing="10.0" styleClass="menu-item">
+               </StackPane>
+               <StackPane fx:id="proceduresContainer" alignment="CENTER_LEFT" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                        <image>
-                           <Image url="@../resources/ProceduresIcon.png" />
-                        </image></ImageView>
-                     <MFXButton fx:id="btnProcedures" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showProcedures" text="Trámites" HBox.hgrow="ALWAYS" />
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon" HBox.hgrow="ALWAYS">
+                              <image>
+                                 <Image url="@../resources/ProceduresIcon.png" />
+                              </image>
+                           </ImageView>
+                           <Label text="Trámites" HBox.hgrow="SOMETIMES" />
+                        </children>
+                     </HBox>
+                     <ToggleButton fx:id="btnProcedures" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showProcedures" text=" " toggleGroup="$menuButtons" />
                   </children>
-               </HBox>
-               <HBox spacing="10.0" styleClass="menu-item">
+               </StackPane>
+               <StackPane fx:id="customersContainer" alignment="CENTER_LEFT" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                        <image>
-                           <Image url="@../resources/CustomersIcon.png" />
-                        </image></ImageView>
-                     <MFXButton fx:id="btnCustomers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showCustomers" text="Clientes" HBox.hgrow="ALWAYS" />
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon" HBox.hgrow="ALWAYS">
+                              <image>
+                                 <Image url="@../resources/CustomersIcon.png" />
+                              </image>
+                           </ImageView>
+                           <Label text="Clientes" HBox.hgrow="SOMETIMES" />
+                        </children>
+                     </HBox>
+                     <ToggleButton fx:id="btnCustomers" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showCustomers" text=" " toggleGroup="$menuButtons" />
                   </children>
-               </HBox>
-               <HBox spacing="10.0" styleClass="menu-item">
+               </StackPane>
+               <StackPane fx:id="locationsContainer" alignment="CENTER_LEFT" styleClass="menu-item">
                   <children>
-                     <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon">
-                        <image>
-                           <Image url="@../resources/LocationsIcon.png" />
-                        </image></ImageView>
-                     <MFXButton fx:id="btnLocations" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#showLocations" text="Localidades" HBox.hgrow="ALWAYS" />
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" styleClass="icon" HBox.hgrow="ALWAYS">
+                              <image>
+                                 <Image url="@../resources/LocationsIcon.png" />
+                              </image>
+                           </ImageView>
+                           <Label text="Localidades" HBox.hgrow="SOMETIMES" />
+                        </children>
+                     </HBox>
+                     <ToggleButton fx:id="btnLocations" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showLocations" text=" " toggleGroup="$menuButtons" />
                   </children>
-               </HBox>
-                </VBox>
-                <VBox alignment="BOTTOM_CENTER" spacing="8.0" VBox.vgrow="ALWAYS">
-                    <ImageView fitHeight="48.0" fitWidth="48.0" preserveRatio="true" />
-                    <Label text="Stephany" />
-                    <Label text="Administrador" />
-               <MFXButton fx:id="btnExit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Salir" />
+               </StackPane>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </VBox>
             </children>
          <opaqueInsets>
@@ -75,10 +95,6 @@
         </VBox>
     </left>
     <center>
-        <StackPane fx:id="contentArea" />
+        <StackPane fx:id="contentArea" prefWidth="406.0" />
     </center>
-   <padding>
-      <Insets left="10.0" />
-   </padding>
 </BorderPane>
-

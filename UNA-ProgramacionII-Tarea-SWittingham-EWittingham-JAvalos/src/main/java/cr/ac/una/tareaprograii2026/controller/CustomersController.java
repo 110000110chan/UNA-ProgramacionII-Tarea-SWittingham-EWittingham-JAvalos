@@ -1,23 +1,15 @@
 package cr.ac.una.tareaprograii2026.controller;
 
-import com.github.sarxos.webcam.Webcam;
 import cr.ac.una.tareaprograii2026.model.Customer;
 import cr.ac.una.tareaprograii2026.model.FileManager;
 import cr.ac.una.tareaprograii2026.util.AppContext;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import cr.ac.una.tareaprograii2026.util.PhotoStorageUtil;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -38,17 +30,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
-import javax.imageio.ImageIO;
 
 public class CustomersController extends Controller implements Initializable {
 
     private static final String CUSTOMERS_FILE = "customers";
-    private static final Path PHOTOS_DIRECTORY = Paths.get(
-            "src", "main", "resources", "cr", "ac", "una", "tareaprograii2026", "resources", "fotos"
-    );
+    private static final String CUSTOMER_DRAFT_KEY = "customer_form_draft";
+    private static final String PHOTO_RESULT_PATH_KEY = "photo_result_path";
+    private static final String PHOTO_REQUEST_OWNER_KEY = "photo_request_owner";
+    private static final String PHOTO_RETURN_VIEW_KEY = "photo_return_view";
 
     @FXML
     private TextField txtBuscar;
@@ -95,25 +84,15 @@ public class CustomersController extends Controller implements Initializable {
     @FXML
     private TextField txtRegEmail;
     @FXML
+    private ImageView imgPreviewFotoCliente;
+    @FXML
+    private Label lblFotoCliente;
+    @FXML
     private Button btnAgregarFoto;
     @FXML
     private Button btnGuardarCliente;
     @FXML
     private Button btnLimpiarFormulario;
-    @FXML
-    private VBox paneFormularioCliente;
-    @FXML
-    private VBox paneFotoCliente;
-    @FXML
-    private ImageView imgViewFoto;
-    @FXML
-    private Button btnSeleccionarFoto;
-    @FXML
-    private Button btnTomarFoto;
-    @FXML
-    private Button btnVolverFormulario;
-    @FXML
-    private Label lblRutaFoto;
     @FXML
     private Label lblTotalClientes;
     @FXML
@@ -125,32 +104,23 @@ public class CustomersController extends Controller implements Initializable {
     private String fotoSeleccionadaPath;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(java.net.URL url, ResourceBundle rb) {
         configurarTabla();
         cargarClientes();
         configurarEventos();
-        mostrarPanelFormulario();
+        restaurarBorradorSiExiste();
         actualizarEtiquetas();
     }
 
     @Override
     public void initialize() {
-        // Requerido por clase base.
     }
 
     private void configurarEventos() {
         btnBuscar.setOnAction(event -> aplicarFiltroBusqueda());
         btnRefrescar.setOnAction(event -> refrescarTabla());
         btnNuevo.setOnAction(event -> abrirTabNuevoCliente());
-        btnAgregarFoto.setOnAction(event -> {
-            if (!validarFormularioSinFoto()) {
-                return;
-            }
-            mostrarPanelFoto();
-        });
-        btnVolverFormulario.setOnAction(event -> mostrarPanelFormulario());
-        btnSeleccionarFoto.setOnAction(event -> seleccionarFotoDesdeArchivo());
-        btnTomarFoto.setOnAction(event -> tomarFotoDesdeCamara());
+        btnAgregarFoto.setOnAction(event -> abrirVistaFotografia());
         btnGuardarCliente.setOnAction(event -> guardarCliente());
         btnLimpiarFormulario.setOnAction(event -> limpiarFormularioCompleto());
     }
@@ -180,7 +150,7 @@ public class CustomersController extends Controller implements Initializable {
                     setGraphic(null);
                     return;
                 }
-                Image image = crearImagenDesdeRuta(path);
+                Image image = PhotoStorageUtil.createImageFromPath(path);
                 if (image == null || image.isError()) {
                     setGraphic(null);
                     return;
@@ -234,24 +204,69 @@ public class CustomersController extends Controller implements Initializable {
         return null;
     }
 
-    private void abrirTabNuevoCliente() {
+    @SuppressWarnings("unchecked")
+    private void restaurarBorradorSiExiste() {
+        Object draftData = AppContext.getInstance().get(CUSTOMER_DRAFT_KEY);
+        if (!(draftData instanceof Map<?, ?> draftMap)) {
+            limpiarPreviewFoto();
+            tabPaneClientes.getSelectionModel().select(tabBusquedaClientes);
+            return;
+        }
+
+        txtRegCedula.setText(valorSeguro((String) draftMap.get("cedula")));
+        txtRegNombre.setText(valorSeguro((String) draftMap.get("nombre")));
+        txtRegTelefono.setText(valorSeguro((String) draftMap.get("telefono")));
+        txtRegEmail.setText(valorSeguro((String) draftMap.get("email")));
+
+        Object fecha = draftMap.get("fechaNacimiento");
+        if (fecha instanceof LocalDate localDate) {
+            dpRegFechaNacimiento.setValue(localDate);
+        }
+
+        String photoPath = valorSeguro((String) AppContext.getInstance().get(PHOTO_RESULT_PATH_KEY));
+        if (photoPath.isBlank()) {
+            photoPath = valorSeguro((String) draftMap.get("foto"));
+        }
+
+        if (!photoPath.isBlank()) {
+            setFotoSeleccionada(photoPath);
+        } else {
+            limpiarPreviewFoto();
+        }
+
         tabPaneClientes.getSelectionModel().select(tabRegistroCliente);
-        mostrarPanelFormulario();
-        limpiarCamposFormulario();
     }
 
-    private void mostrarPanelFormulario() {
-        paneFormularioCliente.setManaged(true);
-        paneFormularioCliente.setVisible(true);
-        paneFotoCliente.setManaged(false);
-        paneFotoCliente.setVisible(false);
+    private void abrirTabNuevoCliente() {
+        limpiarBorradorEnContexto();
+        limpiarFormularioCompleto();
+        tabPaneClientes.getSelectionModel().select(tabRegistroCliente);
     }
 
-    private void mostrarPanelFoto() {
-        paneFormularioCliente.setManaged(false);
-        paneFormularioCliente.setVisible(false);
-        paneFotoCliente.setManaged(true);
-        paneFotoCliente.setVisible(true);
+    private void abrirVistaFotografia() {
+        if (!validarFormularioSinFoto()) {
+            return;
+        }
+
+        guardarBorradorCliente();
+        AppContext.getInstance().set(PHOTO_REQUEST_OWNER_KEY, "customer");
+        AppContext.getInstance().set(PHOTO_RETURN_VIEW_KEY, "CustomersView");
+
+        AdministratorMainController adminController = (AdministratorMainController) AppContext.getInstance().get("admin_main_controller");
+        if (adminController != null) {
+            adminController.mostrarVista("Photography");
+        }
+    }
+
+    private void guardarBorradorCliente() {
+        Map<String, Object> draft = new HashMap<>();
+        draft.put("cedula", txtRegCedula.getText().trim());
+        draft.put("nombre", txtRegNombre.getText().trim());
+        draft.put("telefono", txtRegTelefono.getText().trim());
+        draft.put("email", txtRegEmail.getText().trim());
+        draft.put("fechaNacimiento", dpRegFechaNacimiento.getValue());
+        draft.put("foto", fotoSeleccionadaPath);
+        AppContext.getInstance().set(CUSTOMER_DRAFT_KEY, draft);
     }
 
     private void aplicarFiltroBusqueda() {
@@ -323,7 +338,6 @@ public class CustomersController extends Controller implements Initializable {
         persistirClientes();
         actualizarEtiquetas();
         limpiarFormularioCompleto();
-
         tabPaneClientes.getSelectionModel().select(tabBusquedaClientes);
         refrescarTabla();
     }
@@ -339,132 +353,44 @@ public class CustomersController extends Controller implements Initializable {
     }
 
     private void limpiarFormularioCompleto() {
-        limpiarCamposFormulario();
-        limpiarFoto();
-        mostrarPanelFormulario();
-    }
-
-    private void limpiarCamposFormulario() {
         txtRegCedula.clear();
         txtRegNombre.clear();
         txtRegTelefono.clear();
         txtRegEmail.clear();
         dpRegFechaNacimiento.setValue(null);
+        limpiarPreviewFoto();
+        limpiarBorradorEnContexto();
     }
 
-    private void limpiarFoto() {
+    private void limpiarBorradorEnContexto() {
+        AppContext.getInstance().delete(CUSTOMER_DRAFT_KEY);
+        AppContext.getInstance().delete(PHOTO_RESULT_PATH_KEY);
+        AppContext.getInstance().delete(PHOTO_REQUEST_OWNER_KEY);
+        AppContext.getInstance().delete(PHOTO_RETURN_VIEW_KEY);
+    }
+
+    private void setFotoSeleccionada(String rutaFoto) {
+        Image image = PhotoStorageUtil.createImageFromPath(rutaFoto);
+        if (image == null || image.isError()) {
+            limpiarPreviewFoto();
+            mostrarError("No fue posible cargar la foto seleccionada.");
+            return;
+        }
+
+        fotoSeleccionadaPath = rutaFoto;
+        imgPreviewFotoCliente.setImage(image);
+        lblFotoCliente.setText(rutaFoto);
+        guardarBorradorCliente();
+    }
+
+    private void limpiarPreviewFoto() {
         fotoSeleccionadaPath = null;
-        imgViewFoto.setImage(null);
-        lblRutaFoto.setText("Ninguna foto seleccionada");
+        imgPreviewFotoCliente.setImage(null);
+        lblFotoCliente.setText("Ninguna foto seleccionada");
     }
 
     private void actualizarEtiquetas() {
         lblTotalClientes.setText("Total clientes: " + clientesFiltrados.size());
-    }
-
-    private void seleccionarFotoDesdeArchivo() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar foto del cliente");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Imagenes", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
-        );
-
-        Window owner = imgViewFoto.getScene() != null ? imgViewFoto.getScene().getWindow() : null;
-        File archivoSeleccionado = fileChooser.showOpenDialog(owner);
-        if (archivoSeleccionado == null) {
-            return;
-        }
-
-        try {
-            Path fotoCopiada = copiarFotoAlProyecto(archivoSeleccionado.toPath());
-            cargarFotoEnVista(obtenerRutaRelativaFotos(fotoCopiada));
-        } catch (IOException ex) {
-            mostrarError("No fue posible copiar la imagen seleccionada al proyecto.");
-        }
-    }
-
-    private void tomarFotoDesdeCamara() {
-        Webcam webcam = Webcam.getDefault();
-        if (webcam == null) {
-            mostrarError("No se detecto una camara disponible en el equipo.");
-            return;
-        }
-
-        try {
-            webcam.open();
-            BufferedImage bufferedImage = webcam.getImage();
-            if (bufferedImage == null) {
-                mostrarError("No fue posible capturar la foto desde la camara.");
-                return;
-            }
-
-            Path carpetaFotos = obtenerDirectorioFotos();
-            Files.createDirectories(carpetaFotos);
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-            Path rutaFoto = carpetaFotos.resolve("cliente_" + timestamp + ".png");
-            ImageIO.write(bufferedImage, "PNG", rutaFoto.toFile());
-
-            cargarFotoEnVista(obtenerRutaRelativaFotos(rutaFoto));
-        } catch (IOException ex) {
-            mostrarError("Ocurrio un error guardando la foto capturada.");
-        } finally {
-            if (webcam.isOpen()) {
-                webcam.close();
-            }
-        }
-    }
-
-    private void cargarFotoEnVista(String rutaTexto) {
-        Image image = crearImagenDesdeRuta(rutaTexto);
-        if (image.isError()) {
-            mostrarError("No fue posible abrir la imagen.");
-            return;
-        }
-
-        imgViewFoto.setImage(image);
-        fotoSeleccionadaPath = rutaTexto;
-        lblRutaFoto.setText(rutaTexto);
-    }
-
-    private Image crearImagenDesdeRuta(String path) {
-        try {
-            if (path.startsWith("http") || path.startsWith("file:")) {
-                return new Image(path, true);
-            }
-            Path ruta = Paths.get(path);
-            if (!ruta.isAbsolute()) {
-                ruta = Paths.get(System.getProperty("user.dir")).resolve(ruta).normalize();
-            }
-            return new Image(ruta.toUri().toString(), true);
-        } catch (Exception ex) {
-            return null;
-        }
-    }
-
-    private Path obtenerDirectorioFotos() {
-        return Paths.get(System.getProperty("user.dir")).resolve(PHOTOS_DIRECTORY).normalize();
-    }
-
-    private Path copiarFotoAlProyecto(Path rutaOrigen) throws IOException {
-        Path directorioFotos = obtenerDirectorioFotos();
-        Files.createDirectories(directorioFotos);
-
-        String nombreArchivo = rutaOrigen.getFileName().toString();
-        String extension = "";
-        int extensionIndex = nombreArchivo.lastIndexOf('.');
-        if (extensionIndex >= 0) {
-            extension = nombreArchivo.substring(extensionIndex);
-        }
-
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        Path rutaDestino = directorioFotos.resolve("cliente_" + timestamp + extension);
-        Files.copy(rutaOrigen, rutaDestino, StandardCopyOption.REPLACE_EXISTING);
-        return rutaDestino;
-    }
-
-    private String obtenerRutaRelativaFotos(Path rutaFoto) {
-        Path base = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
-        return base.relativize(rutaFoto.toAbsolutePath().normalize()).toString();
     }
 
     private String valorSeguro(String value) {
@@ -493,9 +419,8 @@ public class CustomersController extends Controller implements Initializable {
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText("Operacion no completada");
+        alert.setHeaderText("Operación no completada");
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 }
-

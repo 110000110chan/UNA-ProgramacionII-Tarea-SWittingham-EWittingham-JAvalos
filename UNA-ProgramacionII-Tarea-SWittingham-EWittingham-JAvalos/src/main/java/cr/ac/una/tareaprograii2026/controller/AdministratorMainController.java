@@ -1,5 +1,6 @@
 package cr.ac.una.tareaprograii2026.controller;
 
+import cr.ac.una.tareaprograii2026.util.AppContext;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,7 @@ public class AdministratorMainController extends Controller implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        AppContext.getInstance().set("admin_main_controller", this);
     }    
     
     public void mostrarVista(String nombreFXML) {

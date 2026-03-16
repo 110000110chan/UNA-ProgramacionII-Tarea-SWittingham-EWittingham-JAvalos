@@ -1,5 +1,6 @@
 package cr.ac.una.tareaprograii2026;
 
+import cr.ac.una.tareaprograii2026.model.QueueManager;
 import cr.ac.una.tareaprograii2026.util.FlowController;
 import io.github.palexdev.materialfx.css.themes.MFXThemeManager;
 import io.github.palexdev.materialfx.css.themes.Themes;
@@ -19,8 +20,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FlowController.getInstance().InitializeFlow(stage, null);
-        scene = new Scene(loadFXML("AdministratorMain"), 640, 480);
         
+        // 2. Inicializamos el motor de colas (QueueManager) 
+        // Al llamar a getInstance() por primera vez, se crea la instancia única.
+        QueueManager.getInstance();
+        
+        scene = new Scene(loadFXML("AdministratorMain"), 640, 480);
         MFXThemeManager.addOn(scene, Themes.DEFAULT, Themes.LEGACY);
         
         String css = getClass().getResource("view/Styles.css").toExternalForm();
